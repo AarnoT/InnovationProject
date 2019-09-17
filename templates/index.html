@@ -24,7 +24,10 @@
 			      alert("name error!");
 			 else if(b!=d)
 			      alert("password error!");
-			 else alert("Welcome!");
+			 else {
+                alert("Welcome!");
+                window.location.assign('/app?user=' + a);
+             }
 		     }
 		</script>
 	</head>
