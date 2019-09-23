@@ -4,23 +4,37 @@
 		<meta charset="utf-8">
 		<title>HIPPA PROJECT</title>
 		<style>
-		    #bg{
-			width:90%;
-			height:80%;
-			top:10%;
-			left:10%;
-			position:fixed;
-			background-image:url(https://i2.kknews.cc/SIG=13u2g3a/39n60000p12o9nqps861.jpg);
-			background-size:100%;
-		     } 
+            html {
+              height: 100%;
+              width: 100%;
+            }
+            body {
+              height: calc(100% - 10px);
+              width: 100%;
+              position: relative;
+              left: 0px;
+              top: 0px;
+              margin: 0px;
+            }
             .header {
               text-align: center;
               background-color: lightgrey;
+              width: calc(100% - 30px);
               padding: 10px;
+              margin: 5px;
               border-style: solid;
               border-width: 2px;
               border-radius: 5px;
             }
+		    #bg {
+              position: relative;
+              margin: 10px;
+			  width: calc(100% - 20px);
+			  height: calc(85% - 20px);
+			  background-image: url(https://i2.kknews.cc/SIG=13u2g3a/39n60000p12o9nqps861.jpg);
+			  background-size: 100%;
+              background-repeat: no-repeat;
+		    }
 		</style>
 		<script type="text/javascript" >
 		     function check() {
@@ -47,7 +61,7 @@
       </header>
 	      <div id="bg">
 		   <form>
-		      <table width="100%">
+		      <table style="margin: auto; padding-top: 15%;">
 			 <tr>
 				<td style="text-align:right" height:"100px">
 				<p style="color:white;">name:</p></td>
