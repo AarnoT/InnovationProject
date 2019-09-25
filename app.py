@@ -58,6 +58,25 @@ def getLoginRequest():
     else:
         return 'Username or password incorrect!'
 
+@app.route('/addPoint')
+def addPoint():
+    conn = sqlite3.connect('app.db')
+    c = conn.cursor()
+    user_id = request.args.get('name')
+    c.execute('''CREATE TABLE IF NOT EXISTS points(name text, points int)''')   
+    rows = c.execute('SELECT points FROM points WHERE name=?', (user_id,))
+    rows = rows.fetchall()
+    points = 0
+    if rows:
+        points = rows[0][0]
+        c.execute("UPDATE points SET points=? WHERE name=?", (points + 1, user_id))
+    else:
+    	points = 0
+    	c.execute("INSERT INTO points VALUES (?, ?)", (user_id, 1))
+    conn.commit()
+    conn.close()
+    return str(points + 1)
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
