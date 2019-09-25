@@ -40,18 +40,14 @@
         <link rel="icon" href="data:,">
         <script type="text/javascript" >
              function check() {
-                var a=document.getElementById('username').value;
-                var b=document.getElementById('password').value;
-                var c='abc';
-                var d='123';
-                if(a!=c)
-                    alert("name error!");
-                else if(b!=d)
-                    alert("password error!");
-                else {
-                    alert("Welcome!");
-                    window.location.assign('/app?user=' + a);
-                }
+                    var a=document.getElementById('username').value;
+                    var b=document.getElementById('password').value;
+
+                    // Use dynamic form to do a POST request.
+                    document.body.innerHTML += '<form id="dynForm" action="/login" method="post">' +
+                                               '<input type="hidden" name="name" value="' + a + '">' +
+                                               '<input type="hidden" name="password" value="' + b + '"></form>';
+                    document.getElementById("dynForm").submit();
              }
 
             function openRegisterPage() {

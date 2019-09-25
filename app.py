@@ -28,7 +28,6 @@ def getRigistRequest():
     c = conn.cursor()
     user_id = request.form.get('name')
     user_pwd = request.form.get('password')
-    print(request.form)
     c.execute('''CREATE TABLE IF NOT EXISTS info(name text, password text)''')   
     
     try:
@@ -42,35 +41,22 @@ def getRigistRequest():
         return 'Register failed'
     conn.close()
 
-@app.route('/login')
+@app.route('/login', methods=['POST'])
 def getLoginRequest():
-    
     conn = sqlite3.connect('app.db')
     c = conn.cursor()
-    user_id = request.args.get('name')
-    user_pwd = request.args.get('password')
+    user_id = request.form.get('name')
+    user_pwd = request.form.get('password')
+    print(user_id, user_pwd)
     
-    try:
-        c.execute('SELECT * FROM stocks WHERE symbol=?, ?', user_id, user_pwd) 
-        results = cursor.fetchall()
-        print(len(results))
-        if len(results) == 1:
-            data = {}
-            data["code"] = 'Welcome'
-            for row in results:
-                data["id"] = row[0]
-                data["pwd"] = row[1]
-            return render_template('app.html')
-        else:
-            return 'Username or password incorrect!'
-        
-        conn.commit()
-        
-    except:
-        traceback.print_exc()
-        c.rollback()
-        
+    rows = c.execute('SELECT 1 FROM info WHERE name=? AND password=?', (user_id, user_pwd)) 
+    results = rows.fetchall()
     conn.close()
+
+    if len(results) >= 1:
+        return redirect('/app?user=' + str(user_id))
+    else:
+        return 'Username or password incorrect!'
 
 
 if __name__ == '__main__':
