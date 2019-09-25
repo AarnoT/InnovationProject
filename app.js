@@ -29,7 +29,13 @@ function main() {
         setTimeout(drawStartScreen, 15000);
     });
 
-    canvas.addEventListener("click", () => {
+    canvas.addEventListener("click", (event) => {
+        const canvasRect = canvas.getBoundingClientRect();
+        const xOffset = window.innerWidth - canvasRect.right;
+        const yOffset = canvasRect.bottom - canvas.width;
+        const clickX = event.clientX - xOffset;
+        const clickY = event.clientY - yOffset;
+
         if (video.paused) {
             video.play();
         }
