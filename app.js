@@ -19,9 +19,14 @@ function main() {
     }
 
     video.addEventListener("play", () => {
+    	const time = Math.floor(Date.now() / 1000);
         function step() {
             if (!video.paused) {
                 ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = "white";
+                ctx.font = "30px Arial";
+    		const t = Math.floor(Date.now() / 1000);
+                ctx.fillText(15 - (t - time), 15, 45);
                 requestAnimationFrame(step);
             }
         }
