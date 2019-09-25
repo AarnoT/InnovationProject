@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import abort, Flask, render_template, request, redirect
 import sqlite3
 
 app = Flask(__name__)
@@ -21,19 +21,20 @@ def main(path='index'):
         abort(404)
 
         
-@app.route('/registuser')
+@app.route('/registuser', methods=['POST'])
 def getRigistRequest():
     
     conn = sqlite3.connect('app.db')
     c = conn.cursor()
-    user_id = request.args.get('name')
-    user_pwd = request.args.get('password')
-    c.execute('''CREATE TABLE info(name text, password text)''')   
+    user_id = request.form.get('name')
+    user_pwd = request.form.get('password')
+    print(request.form)
+    c.execute('''CREATE TABLE IF NOT EXISTS info(name text, password text)''')   
     
     try:
-        c.execute("INSERT INTO app VALUES (user_id,user_pwd)")
+        c.execute("INSERT INTO info VALUES (?, ?)", (user_id, user_pwd))
         conn.commit()
-        return render_template('index.html')
+        return redirect('/');
     
     except:
         traceback.print_exc()

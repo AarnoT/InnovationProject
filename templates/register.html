@@ -38,44 +38,26 @@
               background-repeat: no-repeat;
 		    }
 		</style>
-		<script type="text/javascript" >
-		     function check() {
-			 var a=document.getElementById('username').value;
-			 var b=document.getElementById('password').value;
-			 var c=document.getElementById('Username').value;
-			 var d=document.getElementById('Password').value;
-			 if(a!=c)
-			      alert("name error!");
-			 else if(b!=d)
-			      alert("password error!");
-			 else {
-                alert("Welcome!");
-                window.location.assign('/app?user=' + a);
-             }
-		     }
-		</script>
     </head>
     <body>
 	<header class="header">
 	    <h1>Welcome to register HIPPA game</h1>
       </header>
-        <form>
+        <form action="/registuser" method="post">
 		      <table style="margin: auto; padding-top: 15%;">
 			 <tr>
 				<td style="text-align:right" height:"100px">
 				<p style="color:black;">name:</p></td>
-				<td><input type="text" id="username">
-				<input type="hidden" id="Username" value="abc"></td>
+				<td><input type="text" name="name" id="username">
 			</tr>
 			<tr>
 				<td style="text-align:right">
 				<p style="color:black;">password:</p></td>
-				<td><input type="password" id="password">
-				<input type="hidden" id="Password" value="123"></td>
+				<td><input type="password" name="password" id="password">
 			</tr>
 			<tr>
 				 <td>&nbsp;</td>
-				  <td><input type="button" value="Submit" onclick='check()'></td>
+				  <td><button type="submit">Submit</button></td>
 			</tr>
 			</table>
 		    </form>
