@@ -38,6 +38,26 @@
 		</style>
         <!-- prevent favicon requests -->
         <link rel="icon" href="data:,">
+        <script type="text/javascript" >
+             function check() {
+                var a=document.getElementById('username').value;
+                var b=document.getElementById('password').value;
+                var c='abc';
+                var d='123';
+                if(a!=c)
+                    alert("name error!");
+                else if(b!=d)
+                    alert("password error!");
+                else {
+                    alert("Welcome!");
+                    window.location.assign('/app?user=' + a);
+                }
+             }
+
+            function openRegisterPage() {
+                window.location.assign('/register');
+            }
+        </script>
 	</head>
 	<body>
       <header class="header">
@@ -62,7 +82,7 @@
 			</tr>
 			<tr>
 				 <td>&nbsp;</td>
-				  <td><input type="button" value="Register" onclick='check()'></td>
+				  <td><input type="button" value="Register" onclick='openRegisterPage()'></td>
 			</tr>
 
 			</table>

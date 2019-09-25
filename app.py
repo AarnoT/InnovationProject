@@ -12,7 +12,7 @@ def main(path='index'):
         return render_template('index.html')
     elif path == 'app':
         return render_template('app.html')
-     elif path == 'register':
+    elif path == 'register':
         return render_template('register.html')
     elif path == 'app.js':
         with open('app.js') as f:
@@ -30,7 +30,7 @@ def getRigistRequest():
     user_pwd = request.args.get('password')
     c.execute('''CREATE TABLE info(name text, password text)''')   
     
-    try
+    try:
         c.execute("INSERT INTO app VALUES (user_id,user_pwd)")
         conn.commit()
         return render_template('index.html')
