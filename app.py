@@ -23,28 +23,22 @@ def main(path='index'):
         
 @app.route('/registuser')
 def getRigistRequest():
-    user_id = request.args.get('user')
-    user_pwd = request.args.get('password')
-
-    conn = sqlite3.connect('app.db')
-
-    c = conn.cursor()
-    c.execute('''CREATE TABLE info(name text, password text)''')
-   
-
-    try:
     
+    conn = sqlite3.connect('app.db')
+    c = conn.cursor()
+    user_id = request.args.get('name')
+    user_pwd = request.args.get('password')
+    c.execute('''CREATE TABLE info(name text, password text)''')   
+    
+    try
         c.execute("INSERT INTO app VALUES (user_id,user_pwd)")
-
         conn.commit()
         return render_template('index.html')
+    
     except:
-
         traceback.print_exc()
-       
         c.rollback()
         return 'Register failed'
-
     conn.close()
 
 @app.route('/login')
@@ -56,8 +50,7 @@ def getLoginRequest():
     user_pwd = request.args.get('password')
     
     try:
-        c.execute('SELECT * FROM stocks WHERE symbol=?, ?', user_id, user_pwd)
-       
+        c.execute('SELECT * FROM stocks WHERE symbol=?, ?', user_id, user_pwd) 
         results = cursor.fetchall()
         print(len(results))
         if len(results) == 1:
@@ -69,15 +62,14 @@ def getLoginRequest():
             return render_template('app.html')
         else:
             return 'Username or password incorrect!'
-
+        
         conn.commit()
+        
     except:
-
         traceback.print_exc()
         c.rollback()
-
+        
     conn.close()
-
 
 
 if __name__ == '__main__':
