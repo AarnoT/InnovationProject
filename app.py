@@ -17,6 +17,9 @@ def main(path='index'):
     elif path == 'app.js':
         with open('app.js') as f:
             return f.read()
+    elif path == 'tiger.png':
+        with open('tiger.png', 'rb') as f:
+            return f.read()
     else:
         abort(404)
 
@@ -47,7 +50,6 @@ def getLoginRequest():
     c = conn.cursor()
     user_id = request.form.get('name')
     user_pwd = request.form.get('password')
-    print(user_id, user_pwd)
     
     rows = c.execute('SELECT 1 FROM info WHERE name=? AND password=?', (user_id, user_pwd)) 
     results = rows.fetchall()

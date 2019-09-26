@@ -37,6 +37,12 @@ function main() {
         ctx.fillStyle = "lightblue";
         ctx.fill();
 
+        const img = new Image(500, 500);
+	img.onload = function() {
+	    ctx.drawImage(img, canvas.width / 4 * 3, canvas.height / 4, 120, 120);
+	}
+	img.src = 'tiger.png';
+
         ctx.fillStyle = "white";
         ctx.font = "30px Arial";
         const txt = "Well done!";
