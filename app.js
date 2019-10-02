@@ -1,4 +1,6 @@
 var video;
+var video1;
+var video2;
 var audio;
 var ctx;
 var canvas;
@@ -41,7 +43,12 @@ function drawStatusScreen() {
     audio.play();
 }
 
-function playVideo() { 
+function playVideo() {
+    if (count == 0) {
+        video = video1;
+    } else {
+        video = video2;
+    }
     video.play();
     const time = Math.floor(Date.now() / 1000);
     const timer = 5;
@@ -61,19 +68,29 @@ function playVideo() {
     count++;
 };
 
+function getVideoElement()  {
+    v = document.createElement("video");
+    v.loaded = false;
+    v.loop = true;
+    v.controls = false;
+    v.autoplay = false;
+    return v;
+}
+
 function main() {
     canvas = document.querySelector("#drawcanvas");
     ctx = canvas.getContext("2d");
 
-    video = document.createElement("video");
-    video.loaded = false;
-    video.oncanplaythrough = function() {
-        video.loaded = true;
+    video1 = getVideoElement();
+    video1.oncanplaythrough = function() {
+        video1.loaded = true;
     };
-    video.loop = true;
-    video.controls = false;
-    video.autoplay = false;
-    video.src = "https://giant.gfycat.com/MixedLeadingApatosaur.webm";
+    video2 = getVideoElement();
+    video2.oncanplaythrough = function() {
+        video2.loaded = true;
+    };
+    video1.src = "https://giant.gfycat.com/ViciousCriminalGelada.webm";
+    video2.src = "https://giant.gfycat.com/MixedLeadingApatosaur.webm";
 
     audio = document.createElement("audio");
     audio.loaded = false;
@@ -86,8 +103,6 @@ function main() {
     audio.src = '/sound.mp3';
 
     function drawStartScreen() {    
-        video.pause();
-
         ctx.beginPath();
         ctx.rect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = "lightgrey";
@@ -101,6 +116,12 @@ function main() {
     }
 
     canvas.addEventListener("click", (event) => {
+        if (count == 0) {
+            video = video1;
+        } else {
+            video = video2;
+        }
+
         const canvasRect = canvas.getBoundingClientRect();
         const xOffset = window.innerWidth - canvasRect.right;
         const yOffset = canvasRect.bottom - canvas.width;
