@@ -20,6 +20,9 @@ def main(path='index'):
     elif path == 'tiger.png':
         with open('tiger.png', 'rb') as f:
             return f.read()
+    elif path == 'sound.mp3':
+        with open('sound.mp3', 'rb') as f:
+            return f.read()
     else:
         abort(404)
 

@@ -1,4 +1,5 @@
 var video;
+var audio;
 var ctx;
 var canvas;
 var count = 0;
@@ -36,12 +37,14 @@ function drawStatusScreen() {
     const txt2 = "Points: " + text;
     const size2 = ctx.measureText(txt2);
     ctx.fillText(txt2, canvas.width/2 - size2.width/2, canvas.height/5 * 3);
+
+    audio.play();
 }
 
 function playVideo() { 
     video.play();
     const time = Math.floor(Date.now() / 1000);
-    const timer = 15;
+    const timer = 5;
 
     function step() {
         if (!video.paused) {
@@ -61,15 +64,26 @@ function playVideo() {
 function main() {
     canvas = document.querySelector("#drawcanvas");
     ctx = canvas.getContext("2d");
+
     video = document.createElement("video");
     video.loaded = false;
     video.oncanplaythrough = function() {
         video.loaded = true;
     };
     video.loop = true;
-    video.controls = true;
+    video.controls = false;
     video.autoplay = false;
     video.src = "https://giant.gfycat.com/MixedLeadingApatosaur.webm";
+
+    audio = document.createElement("audio");
+    audio.loaded = false;
+    audio.oncanplaythrough = function() {
+        audio.loaded = true;
+    };
+    audio.loop = false;
+    audio.controls = false;
+    audio.autoplay = false;
+    audio.src = '/sound.mp3';
 
     function drawStartScreen() {    
         video.pause();
@@ -93,7 +107,7 @@ function main() {
         const clickX = event.clientX - xOffset;
         const clickY = event.clientY - yOffset;
 
-        if (video.loaded && video.paused) {
+        if (video.loaded && audio.loaded && video.paused) {
 	    playVideo();
 	}
     });
