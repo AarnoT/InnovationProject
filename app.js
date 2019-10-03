@@ -45,11 +45,6 @@ function drawStatusScreen() {
 }
 
 function playVideo() {
-    if (count == 0) {
-        video = video1;
-    } else {
-        video = video2;
-    }
     video.play();
     const time = Math.floor(Date.now() / 1000);
     const timer = 5;
