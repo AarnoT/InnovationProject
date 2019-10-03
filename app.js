@@ -27,12 +27,16 @@ function drawStatusScreen() {
 
     const img = new Image(500, 500);
     img.onload = function() {
-        ctx.drawImage(img, canvas.width / 4 * 3, canvas.height / 4, 120, 120);
+        ctx.drawImage(
+	    img,
+	    canvas.width / 4 * 3, canvas.height / 4,
+	    canvas.width / 4, canvas.width / 4
+	);
     }
     img.src = 'tiger.png';
 
     ctx.fillStyle = "white";
-    ctx.font = "30px Arial";
+    ctx.font = "250% Arial";
     const txt = "Well done!";
     const size = ctx.measureText(txt);
     ctx.fillText(txt, canvas.width/2 - size.width/2, canvas.height/5);
@@ -57,7 +61,7 @@ function playVideo() {
         if (!video.paused) {
             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
             ctx.fillStyle = "white";
-            ctx.font = "30px Arial";
+            ctx.font = "250% Arial";
     	    const t = Math.floor(Date.now() / 1000);
             ctx.fillText(timer - (t - time), 15, 45);
             requestAnimationFrame(step);
@@ -80,6 +84,8 @@ function getVideoElement()  {
 function main() {
     canvas = document.querySelector("#drawcanvas");
     ctx = canvas.getContext("2d");
+    canvas.width = window.innerHeight;
+    canvas.height = window.innerHeight;
 
     video1 = getVideoElement();
     video1.oncanplaythrough = function() {
@@ -109,7 +115,7 @@ function main() {
         ctx.fill();
 
         ctx.fillStyle = "white";
-        ctx.font = "30px Arial";
+        ctx.font = "250% Arial";
         const txt = "Click to start";
         const size = ctx.measureText(txt);
         ctx.fillText(txt, canvas.width/2 - size.width/2, canvas.height/2);
