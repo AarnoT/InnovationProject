@@ -1,6 +1,7 @@
 var video;
 var video1;
 var video2;
+var video3;
 var audio;
 var img;
 var ctx;
@@ -98,8 +99,13 @@ function main() {
     video2.oncanplaythrough = function() {
         video2.loaded = true;
     };
+    video3 = getVideoElement();
+    video3.oncanplaythrough = function() {
+        video3.loaded = true;
+    };
     video1.src = "https://giant.gfycat.com/ViciousCriminalGelada.webm";
     video2.src = "https://giant.gfycat.com/MixedLeadingApatosaur.webm";
+    video3.src = "https://giant.gfycat.com/NaturalLimpGermanpinscher.webm";
 
     audio = document.createElement("audio");
     audio.loaded = false;
@@ -141,11 +147,13 @@ function main() {
     }
 
     canvas.addEventListener("click", (event) => {
-        if (count == 0) {
+        if (count % 3 == 0) {
             video = video1;
-        } else {
+        } else if (count % 3 == 1) {
             video = video2;
-        }
+        } else {
+	    video = video3;
+	}
 
         const canvasRect = canvas.getBoundingClientRect();
         const xOffset = window.innerWidth - canvasRect.right;
