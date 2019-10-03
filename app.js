@@ -8,6 +8,7 @@ var ctx;
 var canvas;
 var count = 0;
 var points = 0;
+var menuOpen = true;
 
 function drawStatusScreen() {    
     video.pause();
@@ -85,6 +86,34 @@ function getVideoElement()  {
     return v;
 }
 
+function drawMenu() {    
+    ctx.beginPath();
+    ctx.rect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "lightgreen";
+    ctx.fill();
+
+    ctx.fillStyle = "white";
+    ctx.font = "250% Arial";
+    const txt = "Choose exercise";
+    const size = ctx.measureText(txt);
+    ctx.fillText(txt, canvas.width/2 - size.width/2, canvas.height/5);
+
+    ctx.font = "150% Arial";
+    const txt2 = "Stretching";
+    const size2 = ctx.measureText(txt2);
+    ctx.fillText(txt2, canvas.width/8, canvas.height/2);
+
+    ctx.font = "150% Arial";
+    const txt3 = "Bar raise";
+    const size3 = ctx.measureText(txt3);
+    ctx.fillText(txt3, canvas.width/9 * 4, canvas.height/2);
+
+    ctx.font = "150% Arial";
+    const txt4 = "Leg raise";
+    const size4 = ctx.measureText(txt4);
+    ctx.fillText(txt4, canvas.width/8 * 6, canvas.height/2);
+}
+
 function main() {
     canvas = document.querySelector("#drawcanvas");
     ctx = canvas.getContext("2d");
@@ -133,40 +162,36 @@ function main() {
         points = parseInt(req.responseText, 10);
     }
 
-    function drawStartScreen() {    
-        ctx.beginPath();
-        ctx.rect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = "lightgrey";
-        ctx.fill();
-
-        ctx.fillStyle = "white";
-        ctx.font = "250% Arial";
-        const txt = "Click to start";
-        const size = ctx.measureText(txt);
-        ctx.fillText(txt, canvas.width/2 - size.width/2, canvas.height/2);
-    }
-
     canvas.addEventListener("click", (event) => {
-        if (count % 3 == 0) {
-            video = video1;
-        } else if (count % 3 == 1) {
-            video = video2;
-        } else {
-	    video = video3;
-	}
-
         const canvasRect = canvas.getBoundingClientRect();
         const xOffset = window.innerWidth - canvasRect.right;
         const yOffset = canvasRect.bottom - canvas.width;
         const clickX = event.clientX - xOffset;
         const clickY = event.clientY - yOffset;
 
-        if (video.loaded && audio.loaded && video.paused && img.loaded) {
+        var videoSet = false;
+	if (clickY > canvas.height/5 * 2 &&
+	    clickY < canvas.height/4 * 3) {
+	    if (clickX < canvas.width/9 * 4) {
+		video = video1;
+	    } else if (clickX < canvas.width/8 * 6) {
+		video = video2;
+	    } else {
+		video = video3;
+	    }
+	    videoSet = true;
+	}
+
+        if (videoSet && menuOpen && video.loaded && audio.loaded && video.paused && img.loaded) {
+	    menuOpen = false;
 	    playVideo();
+	} else if (!menuOpen && video.paused) {
+	    menuOpen = true;
+	    drawMenu();
 	}
     });
 
-    drawStartScreen();
+    drawMenu();
 }
 
 window.onload = main;
