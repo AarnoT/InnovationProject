@@ -2,6 +2,7 @@ var video;
 var video1;
 var video2;
 var audio;
+var img;
 var ctx;
 var canvas;
 var count = 0;
@@ -25,15 +26,11 @@ function drawStatusScreen() {
     ctx.fillStyle = "lightblue";
     ctx.fill();
 
-    const img = new Image(500, 500);
-    img.onload = function() {
-        ctx.drawImage(
-	    img,
-	    canvas.width / 4 * 3, canvas.height / 4,
-	    canvas.width / 4, canvas.width / 4
-	);
-    }
-    img.src = 'tiger.png';
+    ctx.drawImage(
+	img,
+	canvas.width / 4 * 3, canvas.height / 4,
+	canvas.width / 4, canvas.width / 4
+    );
 
     ctx.fillStyle = "white";
     ctx.font = "250% Arial";
@@ -108,6 +105,12 @@ function main() {
     audio.autoplay = false;
     audio.src = '/sound.mp3';
 
+    img = new Image(500, 500);
+    img.onload = function() {
+        img.loaded = true;
+    }
+    img.src = 'tiger.png';
+
     function drawStartScreen() {    
         ctx.beginPath();
         ctx.rect(0, 0, canvas.width, canvas.height);
@@ -134,7 +137,7 @@ function main() {
         const clickX = event.clientX - xOffset;
         const clickY = event.clientY - yOffset;
 
-        if (video.loaded && audio.loaded && video.paused) {
+        if (video.loaded && audio.loaded && video.paused && img.loaded) {
 	    playVideo();
 	}
     });
