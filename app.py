@@ -82,6 +82,19 @@ def addPoint():
     conn.close()
     return str(points + 1)
 
+@app.route('/getPoints')
+def getPoints():
+    conn = sqlite3.connect('app.db')
+    c = conn.cursor()
+    user_id = request.args.get('name')
+    rows = c.execute('SELECT points FROM points WHERE name=?', (user_id,))
+    rows = rows.fetchall()
+    conn.close()
+    points = 0
+    if rows:
+        points = rows[0][0]
+    return str(points)
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

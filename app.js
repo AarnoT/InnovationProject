@@ -6,6 +6,7 @@ var img;
 var ctx;
 var canvas;
 var count = 0;
+var points = 0;
 
 function drawStatusScreen() {    
     video.pause();
@@ -19,6 +20,7 @@ function drawStatusScreen() {
         req.open('GET', '/addPoint?name=' + user, false);
         req.send();
         text = req.responseText;
+        points = parseInt(req.responseText, 10);
     }
 
     ctx.beginPath();
@@ -40,6 +42,15 @@ function drawStatusScreen() {
     const txt2 = "Points: " + text;
     const size2 = ctx.measureText(txt2);
     ctx.fillText(txt2, canvas.width/2 - size2.width/2, canvas.height/5 * 3);
+
+    if (points % 3 == 0) {
+        const txt3 = "Exercise has many"
+	const txt4 = "health benefits!";
+        const size3 = ctx.measureText(txt3);
+        const size4 = ctx.measureText(txt4);
+        ctx.fillText(txt3, canvas.width/2 - size3.width/2, canvas.height/5 * 4);
+        ctx.fillText(txt4, canvas.width/2 - size4.width/2, canvas.height/10 * 9);
+    }
 
     audio.play();
 }
@@ -105,6 +116,16 @@ function main() {
         img.loaded = true;
     }
     img.src = 'tiger.png';
+
+    const url_parts = window.location.href.split('?');
+    if (url_parts.length >= 2) {
+        const search = new URLSearchParams(url_parts[1]);
+        const user = search.get('user');
+        const req = new XMLHttpRequest();
+        req.open('GET', '/getPoints?name=' + user, false);
+        req.send();
+        points = parseInt(req.responseText, 10);
+    }
 
     function drawStartScreen() {    
         ctx.beginPath();
