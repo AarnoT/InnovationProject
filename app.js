@@ -47,9 +47,9 @@ function drawStatusScreen() {
 
     if (points % 3 == 0) {
 	ctx.fillStyle = "white";
-    	ctx.font = "100% Arial";
-        const txt3 = "Doing exercise helps to regulate the blood pressure, body presure, aids locomotion"
-	const txt4 = "It helps burn excess fat in the body";
+    	ctx.font = "150% Arial";
+        const txt3 = "Doing exercise helps to regulate the blood pressure and body presure!"
+	const txt4 = "It helps good locomotion and burn excess fat in the body!";
 	const txt5 = " Constant or regular exercise helps to increase life expectancy rate of individuals!";
         const size3 = ctx.measureText(txt3);
         const size4 = ctx.measureText(txt4);
