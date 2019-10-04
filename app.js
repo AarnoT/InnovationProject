@@ -46,8 +46,10 @@ function drawStatusScreen() {
     ctx.fillText(txt2, canvas.width/2 - size2.width/2, canvas.height/5 * 3);
 
     if (points % 3 == 0) {
-        const txt3 = "Exercise has many"
-	const txt4 = "health benefits!";
+	ctx.fillStyle = "white";
+    	ctx.font = "150% Arial";
+        const txt3 = "Doing exercise helps to regulate the blood pressure, body presure, aids locomotion and helps burn excess fat in the body"
+	const txt4 = "Constant or regular exercise helps to increase life expectancy rate of individuals!";
         const size3 = ctx.measureText(txt3);
         const size4 = ctx.measureText(txt4);
         ctx.fillText(txt3, canvas.width/2 - size3.width/2, canvas.height/5 * 4);
