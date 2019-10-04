@@ -50,13 +50,13 @@ function drawStatusScreen() {
     	ctx.font = "150% Arial";
         const txt3 = "Doing exercise helps to regulate the blood pressure and body presure!"
 	const txt4 = "It helps good locomotion and burn excess fat in the body!";
-	const txt5 = " Constant or regular exercise helps to increase life expectancy rate of individuals!";
+	const txt5 = "Regular exercise helps to increase life expectancy rate of individuals!";
         const size3 = ctx.measureText(txt3);
         const size4 = ctx.measureText(txt4);
 	const size5 = ctx.measureText(txt5);
         ctx.fillText(txt3, canvas.width/2 - size3.width/2, canvas.height/5 * 4);
-        ctx.fillText(txt4, canvas.width/2 - size4.width/2, canvas.height/10 * 9);
-	ctx.fillText(txt5, canvas.width/2 - size5.width/2, canvas.height/15 * 13);
+        ctx.fillText(txt4, canvas.width/2 - size4.width/2, canvas.height/5 * 9);
+	ctx.fillText(txt5, canvas.width/2 - size5.width/2, canvas.height/5 * 13);
     }
 
     audio.play();
