@@ -56,7 +56,7 @@ function drawStatusScreen() {
 	const size5 = ctx.measureText(txt5);
         ctx.fillText(txt3, canvas.width/2 - size3.width/2, canvas.height/5 * 4);
         ctx.fillText(txt4, canvas.width/2 - size4.width/2, canvas.height/10 * 9);
-	ctx.fillText(txt5, canvas.width/2 - size5.width/2, canvas.height/15 * 17);
+	ctx.fillText(txt5, canvas.width/2 - size5.width/2, canvas.height/10 * 17);
     }
 
     audio.play();
